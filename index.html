@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Di María — Control Financiero 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F5F4F0;color:#1a1a1a;padding:1.25rem 1.5rem;max-width:1100px;margin:0 auto}
+.top{display:flex;align-items:flex-start;justify-content:space-between;padding:.5rem 0 .8rem;border-bottom:1px solid #E0DDD8;margin-bottom:1rem}
+.top h1{font-size:15px;font-weight:600}.sub{font-size:10px;color:#999;margin-top:2px}
+.badge{font-size:10px;color:#888;background:#EAE8E2;padding:4px 10px;border-radius:20px;white-space:nowrap}
+.sec{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.06em;margin:1rem 0 .5rem}
+.sr{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:.5rem}
+.sl{font-size:9px;color:#aaa;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:3px;white-space:nowrap}
+.sb{font-size:11px;padding:4px 12px;border-radius:20px;cursor:pointer;border:1px solid #D8D5CF;background:#fff;color:#555;transition:all .15s;white-space:nowrap;line-height:1.4}
+.sb:hover{border-color:#999;background:#f5f4f0}
+.sb.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.sb.c.on{background:#2563EB;border-color:#2563EB}
+.sb.g.on{background:#059669;border-color:#059669}
+.sb.p.on{background:#D97706;border-color:#D97706}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:8px;margin-bottom:1rem}
+.kpi{background:#fff;border-radius:8px;padding:.75rem .9rem;border:1px solid #E8E5DF}
+.kpi-l{font-size:9px;color:#999;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.kpi-v{font-size:19px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.kpi-s{font-size:10px;color:#888;margin-top:3px}
+.pos{color:#059669}.neg{color:#DC2626}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1rem}
+.card{background:#fff;border:1px solid #E8E5DF;border-radius:10px;padding:.9rem 1rem}
+.card.full{grid-column:1/-1}
+.ct{font-size:9px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.leg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;font-size:10px;color:#666;align-items:center}
+.ld{width:7px;height:7px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:middle}
+.tw{overflow-x:auto;border-radius:8px;border:1px solid #E8E5DF}
+table{width:100%;border-collapse:collapse;font-size:11px;background:#fff}
+th{background:#F8F6F2;color:#999;font-weight:600;font-size:9px;text-transform:uppercase;letter-spacing:.04em;padding:7px 10px;text-align:left;border-bottom:1px solid #E8E5DF;white-space:nowrap}
+td{padding:6px 10px;border-bottom:1px solid #F0EDE8}tr:last-child td{border-bottom:none}tr:hover td{background:#FAFAF8}
+.tag{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:600}
+.tp{background:#E6F4ED;color:#1A7A4A}.tn{background:#FDECEA;color:#B03025}
+.bb{background:#EAE8E2;border-radius:3px;height:4px;width:55px;display:inline-block;vertical-align:middle}
+.bf{height:4px;border-radius:3px;background:#059669;display:block}.bf.n{background:#DC2626}
+.pb{background:#F0EDE8;border-radius:3px;height:4px;margin-top:2px}
+.pb-f{height:4px;border-radius:3px;transition:width .4s}
+.prow{margin-bottom:7px}
+.pm{display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px}
+.pn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:65%;color:#333}
+.pv{white-space:nowrap;font-weight:500;color:#666}
+.nota{font-size:9px;color:#bbb;margin-top:7px;font-style:italic}
+@media(max-width:720px){.g2,.g3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div>
+    <h1>📊 Di María — Control Financiero 2026</h1>
+    <div class="sub">Actualizado: 25/07/2026 20:49· NIT 901542571-8</div>
+  </div>
+  <span class="badge">Chapinero · Guacarí · Panadería</span>
+</div>
+
+<!-- Slicer Mes -->
+<div class="sr">
+  <span class="sl">Mes</span>
+  <button class="sb on"  onclick="setMes(0)">Todos</button>
+  <button class="sb" onclick="setMes(1)">Ene</button>
+  <button class="sb" onclick="setMes(2)">Feb</button>
+  <button class="sb" onclick="setMes(3)">Mar</button>
+  <button class="sb" onclick="setMes(4)">Abr</button>
+  <button class="sb" onclick="setMes(5)">May</button>
+  <button class="sb" onclick="setMes(6)">Jun</button>
+  <button class="sb" onclick="setMes(7)">Jul</button>
+</div>
+<!-- Slicer Sucursal -->
+<div class="sr" style="margin-bottom:1rem">
+  <span class="sl">Sucursal</span>
+  <button class="sb on"  onclick="setSuc('')">Todas</button>
+  <button class="sb c"   onclick="setSuc('Chapinero')">Chapinero</button>
+  <button class="sb g"   onclick="setSuc('Guacarí')">Guacarí</button>
+  <button class="sb p"   onclick="setSuc('Panadería')">Panadería</button>
+</div>
+
+<div class="sec">Indicadores del período</div>
+<div class="kpis" id="KR"></div>
+
+<div class="sec">Ventas y márgenes mensuales</div>
+<div class="g2">
+  <div class="card">
+    <div class="ct">Ventas netas por sucursal</div>
+    <div class="leg" id="lV"></div>
+    <div style="position:relative;height:190px"><canvas id="cV"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="ct">Margen bruto % por sucursal</div>
+    <div class="leg" id="lM"></div>
+    <div style="position:relative;height:190px"><canvas id="cM"></canvas></div>
+  </div>
+  <div class="card full">
+    <div class="ct">P&L mensual consolidado — Ventas · CMV · Gastos · Utilidad</div>
+    <div class="leg" id="lP"></div>
+    <div style="position:relative;height:205px"><canvas id="cP"></canvas></div>
+  </div>
+</div>
+
+<div class="sec">Distribución de ventas — días y horas</div>
+<div class="g2">
+  <!-- Días de semana con datos reales -->
+  <div class="card">
+    <div class="ct">Ventas por día de semana — datos reales 2026</div>
+    <div class="sr" style="margin-bottom:8px">
+      <span class="sl">Ver</span>
+      <button class="sb g on" id="dBtn0" onclick="setDiaSuc('Guacarí')">Guacarí</button>
+      <button class="sb c"    id="dBtn1" onclick="setDiaSuc('Chapinero')">Chapinero</button>
+      <button class="sb p"    id="dBtn2" onclick="setDiaSuc('Panadería')">Panadería</button>
+    </div>
+    <div style="position:relative;height:185px"><canvas id="cDia"></canvas></div>
+    <div class="nota" id="diaNote">Todos los meses · Guacarí</div>
+  </div>
+  <!-- Horas estimadas -->
+  <div class="card">
+    <div class="ct">Distribución por hora del día — patrón operativo</div>
+    <div class="sr" style="margin-bottom:8px">
+      <span class="sl">Punto</span>
+      <button class="sb g on" id="hBtn0" onclick="setHoraSuc('Guacarí')">Guacarí</button>
+      <button class="sb c"    id="hBtn1" onclick="setHoraSuc('Chapinero')">Chapinero</button>
+      <button class="sb p"    id="hBtn2" onclick="setHoraSuc('Panadería')">Panadería</button>
+    </div>
+    <div style="position:relative;height:185px"><canvas id="cHora"></canvas></div>
+    <div class="nota">Estimado según patrón operativo — conectar POS para datos reales por hora</div>
+  </div>
+</div>
+
+<div class="sec">Top 10 productos por ventas — acumulado 2026</div>
+<div class="g3" id="topsGrid"></div>
+
+<div class="sec">Categorías de venta por sucursal</div>
+<div class="g3" id="catsGrid"></div>
+
+<div class="sec">Detalle mensual por sucursal</div>
+<div class="sr" style="margin-bottom:.75rem" id="tabBtns"></div>
+<div class="tw">
+  <table><thead><tr>
+    <th>Mes</th><th style="text-align:right">Ventas</th><th style="text-align:right">CMV</th>
+    <th style="text-align:right">Margen bruto</th><th style="text-align:right">%MB</th>
+    <th style="text-align:right">Gastos</th><th style="text-align:right">Utilidad oper.</th>
+    <th style="text-align:right">%UO</th><th>Tend.</th>
+  </tr></thead>
+  <tbody id="TB"></tbody>
+  </table>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ── Datos ────────────────────────────────────────────────────
+const D=[{"mes": 1, "mn": "Ene", "suc": "Chapinero", "v": 29875805, "c": 5175669, "mb": 24700136, "g": 0, "uo": 0}, {"mes": 1, "mn": "Ene", "suc": "Guacarí", "v": 116559849, "c": 49656, "mb": 116510193, "g": 0, "uo": 0}, {"mes": 1, "mn": "Ene", "suc": "Panadería", "v": 9236760, "c": 0, "mb": 9236760, "g": 0, "uo": 0}, {"mes": 2, "mn": "Feb", "suc": "Chapinero", "v": 20472775, "c": 4492880, "mb": 15979895, "g": 610485, "uo": 0}, {"mes": 2, "mn": "Feb", "suc": "Guacarí", "v": 88185105, "c": 24573071, "mb": 63612034, "g": 2629621, "uo": 0}, {"mes": 2, "mn": "Feb", "suc": "Panadería", "v": 7208000, "c": 0, "mb": 7208000, "g": 214938, "uo": 0}, {"mes": 3, "mn": "Mar", "suc": "Chapinero", "v": 24083760, "c": 4942084, "mb": 19141676, "g": 598253, "uo": 0}, {"mes": 3, "mn": "Mar", "suc": "Guacarí", "v": 109547189, "c": 31171175, "mb": 78376014, "g": 2721211, "uo": 0}, {"mes": 3, "mn": "Mar", "suc": "Panadería", "v": 9486220, "c": 0, "mb": 9486220, "g": 235643, "uo": 0}, {"mes": 4, "mn": "Abr", "suc": "Chapinero", "v": 21526394, "c": 4941613, "mb": 16584781, "g": 929403, "uo": 0}, {"mes": 4, "mn": "Abr", "suc": "Guacarí", "v": 92310721, "c": 167364215, "mb": -75053494, "g": 3985521, "uo": 0}, {"mes": 4, "mn": "Abr", "suc": "Panadería", "v": 8655250, "c": 0, "mb": 8655250, "g": 373691, "uo": 0}, {"mes": 5, "mn": "May", "suc": "Chapinero", "v": 21026281, "c": 5412435, "mb": 15613846, "g": 655838, "uo": 0}, {"mes": 5, "mn": "May", "suc": "Guacarí", "v": 105435713, "c": 25250875, "mb": 80184838, "g": 3288681, "uo": 0}, {"mes": 5, "mn": "May", "suc": "Panadería", "v": 3945500, "c": 0, "mb": 3945500, "g": 123065, "uo": 0}, {"mes": 6, "mn": "Jun", "suc": "Chapinero", "v": 33105154, "c": 1889040, "mb": 31216114, "g": 16323688, "uo": 0}, {"mes": 6, "mn": "Jun", "suc": "Guacarí", "v": 108343445, "c": 31739169, "mb": 76604275, "g": 53422634, "uo": 0}, {"mes": 7, "mn": "Jul", "suc": "Chapinero", "v": 24314173, "c": 820121, "mb": 23494052, "g": 745086, "uo": 0}, {"mes": 7, "mn": "Jul", "suc": "Guacarí", "v": 91278000, "c": 300000, "mb": 90978000, "g": 2797131, "uo": 0}];
+const TOPS={"Chapinero": [{"p": "Pan Masa Madre Integral", "t": 7096766, "q": 263}, {"p": "Sandwich De Lomo de Búfalo", "t": 5785852, "q": 150}, {"p": "Croissant de Mantequilla", "t": 3379530, "q": 360}, {"p": "Michel Angelo", "t": 3165426, "q": 65}, {"p": "Milo Frío", "t": 3161622, "q": 203}, {"p": "Capuccino mediano Capuccino   grand", "t": 2719865, "q": 256}, {"p": "Huevos al Gusto", "t": 2431855, "q": 90}, {"p": "3 Quesos", "t": 2423775, "q": 84}, {"p": "Cheescake Porción", "t": 2346898, "q": 112}, {"p": "Salados Croissant con Jamon y Queso", "t": 2279506, "q": 164}], "Panadería": [{"p": "Brioche Hamburguesas", "t": 12465900, "q": 7042}, {"p": "Brioche de hamburguesas", "t": 9847550, "q": 5386}, {"p": "Brioche de hamburguesa", "t": 8216700, "q": 4185}, {"p": "Slider", "t": 1816980, "q": 1372}, {"p": "bagette", "t": 1098000, "q": 244}, {"p": "mini burguer ", "t": 828600, "q": 788}, {"p": "cheescake ", "t": 720000, "q": 9}, {"p": "brioche perro", "t": 631200, "q": 324}, {"p": "pan perro ", "t": 608100, "q": 332}, {"p": "philly", "t": 426400, "q": 208}], "Guacarí": [{"p": "Sándwich Lomo De Búfalo", "t": 22324830, "q": 571}, {"p": "Cappuccino mediano", "t": 15757915, "q": 1479}, {"p": "Americano mediano", "t": 14727027, "q": 1737}, {"p": "Milo frío", "t": 11630327, "q": 724}, {"p": "Mini Hamburguesas X3 con papas", "t": 10023352, "q": 315}, {"p": "Soda Saborizada con bretaña", "t": 9164463, "q": 614}, {"p": "Cheescake mini", "t": 8927795, "q": 563}, {"p": "Sándwich Di María", "t": 7719307, "q": 224}, {"p": "Agua", "t": 7711637, "q": 1588}, {"p": "Lasaña de berenjena", "t": 7480567, "q": 174}]};
+const CATS={"Chapinero": [{"c": "Laminados", "t": 17530868}, {"c": "Panaderia", "t": 16291084}, {"c": "Sanduches", "t": 9624527}, {"c": "Desayunos", "t": 9492890}, {"c": "Bebidas Calientes", "t": 8893915}, {"c": "Bebidas Frias", "t": 7836286}], "Guacarí": [{"c": "Bebidas Frias", "t": 108490606}, {"c": "Sandwiches", "t": 58734915}, {"c": "Bebidas calientes", "t": 55994196}, {"c": "Pizzas", "t": 33769107}, {"c": "Desayunos", "t": 31595899}, {"c": "Reposteria", "t": 30967076}]};
+const VDIA = {"Chapinero": {"1": [4318843, 4988761, 3917119, 4979109, 3253716, 5282794, 3135463], "2": [2561351, 2641035, 2872523, 2190689, 2869679, 3202769, 4134729], "3": [2274498, 3448706, 3264938, 2901844, 2143362, 4438340, 5612071], "4": [1768091, 2770954, 4020201, 2658444, 3999289, 2437217, 3872197], "5": [964762, 1182308, 1344117, 2028206, 1262596, 1479358, 3521561], "6": [0, 0, 0, 0, 0, 0, 0], "7": [0, 0, 0, 0, 0, 0, 0], "0": [11887544, 15031764, 15418898, 14758292, 13528643, 16840478, 20276022]}, "Panadería": {"1": [1181580, 316050, 1100800, 1312560, 1915940, 3409830, 0], "2": [678500, 234140, 467900, 1368580, 857960, 3600920, 0], "3": [1459790, 694930, 451000, 662750, 2483240, 3605810, 128700], "4": [454950, 634560, 2292070, 2162680, 817630, 2293360, 0], "5": [144940, 148740, 98400, 666010, 1248580, 1638830, 0], "6": [0, 0, 0, 0, 0, 0, 0], "7": [0, 0, 0, 0, 0, 0, 0], "0": [3919760, 2028420, 4410170, 6172580, 7323350, 14548750, 128700]}, "Guacarí": {"1": [13643682, 12363852, 14015325, 15623605, 22883329, 23571255, 14458800], "2": [10801553, 9806185, 13480523, 12378523, 13900493, 15617815, 12200015], "3": [13134988, 16594178, 12081810, 11744863, 14985480, 18804360, 22201510], "4": [8354935, 10385934, 14454812, 14159095, 16216327, 16452510, 12287108], "5": [7376422, 7458433, 5178545, 4511925, 14278880, 13087663, 17788498], "6": [0, 0, 0, 0, 0, 0, 0], "7": [0, 0, 0, 0, 0, 0, 0], "0": [53311581, 56608581, 59211015, 58418010, 82264509, 87533603, 78935930]}};   // {suc:{mes:[lun..dom]}} mes=0 → todos
+
+// ── Constantes ───────────────────────────────────────────────
+const MN   = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const DIAS = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+const COP  = v => '$'+Math.round(v||0).toLocaleString('es-CO');
+const COPM = v => { const a=Math.abs(v||0); return (v<0?'-':'')+'$'+(a>=1e6?(a/1e6).toFixed(1)+'M':(a/1e3).toFixed(0)+'K'); };
+const SC   = {Chapinero:'#2563EB', Guacarí:'#059669', Panadería:'#D97706'};
+const gc   = (s,i) => SC[s]||['#7C3AED','#DC2626','#0891B2'][i%3];
+const GRD  = '#F0EDE8';
+
+// ── Estado ───────────────────────────────────────────────────
+let selMes=0, selSuc='', selTabSuc='', selDiaSuc='Guacarí', selHoraSuc='Guacarí';
+let CH={};
+const sucs  = [...new Set(D.map(r=>r.suc))].sort();
+const meses = [...new Set(D.map(r=>r.mes))].sort((a,b)=>a-b);
+
+// ── Helpers slicer ───────────────────────────────────────────
+function activar(selector, valor, compare) {
+  document.querySelectorAll(selector).forEach(b =>
+    b.classList.toggle('on', compare(b,valor)));
+}
+
+function setMes(m) {
+  selMes = m;
+  document.querySelectorAll('.sr:nth-of-type(1) .sb').forEach((b,i)=>b.classList.toggle('on',i===m));
+  render(); renderDia();
+}
+function setSuc(s) {
+  selSuc = s;
+  document.querySelectorAll('.sr:nth-of-type(2) .sb').forEach(b=>
+    b.classList.toggle('on', b.textContent.trim()===(s||'Todas')));
+  render();
+}
+function setDiaSuc(s) {
+  selDiaSuc = s;
+  ['dBtn0','dBtn1','dBtn2'].forEach(id => {
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('on', el.textContent.trim()===s);
+  });
+  renderDia();
+}
+function setHoraSuc(s) {
+  selHoraSuc = s;
+  ['hBtn0','hBtn1','hBtn2'].forEach(id => {
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('on', el.textContent.trim()===s);
+  });
+  renderHora();
+}
+
+// ── Filtro principal ─────────────────────────────────────────
+function fil() {
+  return D.filter(r=>(!selMes||r.mes===selMes)&&(!selSuc||r.suc===selSuc));
+}
+
+// ── Días de semana ───────────────────────────────────────────
+function renderDia() {
+  if(CH.dia){try{CH.dia.destroy()}catch(e){}}
+  const suc   = selDiaSuc;
+  const color = gc(suc,0);
+  const data  = VDIA[suc] || {};
+  // Clave: selMes=0 → datos acumulados, sino datos del mes
+  const key   = selMes;
+  const vals  = data[key] || data[0] || [0,0,0,0,0,0,0];
+  const maxV  = Math.max(...vals, 1);
+
+  document.getElementById('diaNote').textContent =
+    (selMes ? MN[selMes-1]+' · ' : 'Todos los meses · ') + suc + ' · datos reales Excel 2026';
+
+  CH.dia = new Chart(document.getElementById('cDia'), {
+    type:'bar',
+    data:{
+      labels: DIAS,
+      datasets:[{
+        label:'Ventas',
+        data: vals,
+        backgroundColor: vals.map((v,i)=> i>=5 ? color : color+'88'),
+        borderRadius:4,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>` ${COP(ctx.raw)}`}}
+      },
+      scales:{
+        x:{grid:{color:GRD},ticks:{font:{size:10}}},
+        y:{grid:{color:GRD},ticks:{font:{size:10},callback:v=>'$'+Math.round(v/1e6)+'M'}}
+      }
+    }
+  });
+}
+
+// ── Horas estimadas ──────────────────────────────────────────
+function renderHora() {
+  if(CH.hora){try{CH.hora.destroy()}catch(e){}}
+  const suc   = selHoraSuc;
+  const color = gc(suc,0);
+
+  const patrones = {
+    Guacarí:   {h:['11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h'],
+                 d:[5,18,22,18,10,7,8,10,16,14,6]},
+    Chapinero: {h:['7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h'],
+                 d:[5,15,20,18,12,10,8,6,5,4,3,2]},
+    Panadería: {h:['6h','7h','8h','9h','10h','11h','12h','13h','14h'],
+                 d:[8,18,22,18,12,8,5,3,2]},
+  };
+  const p = patrones[suc] || patrones.Guacarí;
+  const maxD = Math.max(...p.d);
+
+  CH.hora = new Chart(document.getElementById('cHora'), {
+    type:'bar',
+    data:{
+      labels: p.h,
+      datasets:[{
+        label:'% flujo',
+        data: p.d,
+        backgroundColor: p.d.map(v => v>=maxD*0.8 ? color : color+'88'),
+        borderRadius:4,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.raw}% del flujo diario`}}
+      },
+      scales:{
+        x:{grid:{color:GRD},ticks:{font:{size:10}}},
+        y:{grid:{color:GRD},max:25,ticks:{font:{size:10},callback:v=>v+'%'}}
+      }
+    }
+  });
+}
+
+// ── Tops ─────────────────────────────────────────────────────
+function renderTops() {
+  const g = document.getElementById('topsGrid');
+  g.innerHTML='';
+  ['Guacarí','Chapinero','Panadería'].forEach(suc=>{
+    const data=TOPS[suc]||[];
+    const maxT=Math.max(...data.map(x=>x.t),1);
+    const color=gc(suc,0);
+    const div=document.createElement('div');
+    div.className='card';
+    div.innerHTML=`<div class="ct">${suc}</div>`+
+      data.map((x,i)=>`
+        <div class="prow">
+          <div class="pm">
+            <span class="pn">${i+1}. ${x.p}</span>
+            <span class="pv">${COP(x.t)}</span>
+          </div>
+          <div class="pb"><div class="pb-f" style="width:${Math.round(x.t/maxT*100)}%;background:${color}"></div></div>
+        </div>`).join('')+
+      `<div class="nota">Cantidad total: ${data.reduce((a,x)=>a+x.q,0).toLocaleString('es-CO')} uds</div>`;
+    g.appendChild(div);
+  });
+}
+
+// ── Categorías ───────────────────────────────────────────────
+function renderCats() {
+  const g=document.getElementById('catsGrid');
+  g.innerHTML='';
+  ['Guacarí','Chapinero','Panadería'].forEach((suc,si)=>{
+    const data=CATS[suc]||[];
+    const div=document.createElement('div');
+    div.className='card';
+    div.innerHTML=`<div class="ct">${suc} — por categoría</div><div style="position:relative;height:150px"><canvas id="cc${si}"></canvas></div>`;
+    g.appendChild(div);
+    if(!data.length) return;
+    const color=gc(suc,si);
+    setTimeout(()=>{
+      new Chart(document.getElementById('cc'+si),{
+        type:'doughnut',
+        data:{
+          labels:data.map(x=>x.c),
+          datasets:[{data:data.map(x=>x.t),
+            backgroundColor:[color,color+'CC',color+'99',color+'66',color+'44',color+'22'],
+            borderWidth:2,borderColor:'#fff'}]
+        },
+        options:{responsive:true,maintainAspectRatio:false,
+          plugins:{legend:{position:'right',labels:{font:{size:9},padding:5,boxWidth:9}},
+            tooltip:{callbacks:{label:ctx=>` ${COP(ctx.raw)}`}}}}
+      });
+    },60*si);
+  });
+}
+
+// ── P&L render ───────────────────────────────────────────────
+function render() {
+  ['v','m','p'].forEach(k=>{try{CH[k]&&CH[k].destroy()}catch(e){}});
+  const d  =fil();
+  const vt =d.reduce((a,r)=>a+r.v, 0);
+  const mb =d.reduce((a,r)=>a+r.mb,0);
+  const gs =d.reduce((a,r)=>a+r.g, 0);
+  const uo =d.reduce((a,r)=>a+r.uo,0);
+  const cmv=d.reduce((a,r)=>a+r.c, 0);
+
+  // KPIs
+  document.getElementById('KR').innerHTML=[
+    {l:'Ventas netas', v:COPM(vt),  s:'período'},
+    {l:'CMV',          v:COPM(cmv), s:vt?((cmv/vt)*100).toFixed(1)+'% ventas':'—'},
+    {l:'Margen bruto', v:vt?((mb/vt)*100).toFixed(1)+'%':'—', s:COP(mb), c:mb>=0},
+    {l:'Gastos',       v:COPM(gs),  s:vt?((gs/vt)*100).toFixed(1)+'% ventas':'—'},
+    {l:'Utilidad',     v:vt?((uo/vt)*100).toFixed(1)+'%':'—', s:COP(uo), c:uo>=0},
+  ].map(k=>`<div class="kpi">
+    <div class="kpi-l">${k.l}</div>
+    <div class="kpi-v ${k.c===true?'pos':k.c===false?'neg':''}">${k.v}</div>
+    <div class="kpi-s">${k.s}</div>
+  </div>`).join('');
+
+  const sucsVis = selSuc?[selSuc]:sucs;
+  const lbls    = meses.map(m=>MN[m-1]);
+
+  // Ventas
+  document.getElementById('lV').innerHTML=sucsVis.map((s,i)=>
+    `<span><span class="ld" style="background:${gc(s,i)}"></span>${s}</span>`).join('');
+  CH.v=new Chart(document.getElementById('cV'),{type:'line',
+    data:{labels:lbls,datasets:sucsVis.map((s,i)=>{const c=gc(s,i);return{label:s,tension:.35,
+      pointRadius:3,borderWidth:2,borderColor:c,backgroundColor:c+'18',fill:true,
+      data:meses.map(m=>D.filter(r=>r.suc===s&&r.mes===m).reduce((a,r)=>a+r.v,0))};})},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${COP(ctx.raw)}`}}},
+      scales:{x:{grid:{color:GRD},ticks:{font:{size:9},maxRotation:0}},
+              y:{grid:{color:GRD},ticks:{font:{size:9},callback:v=>'$'+Math.round(v/1e6)+'M'}}}}});
+
+  // Margen %
+  document.getElementById('lM').innerHTML=sucsVis.map((s,i)=>
+    `<span><span class="ld" style="background:${gc(s,i)}"></span>${s}</span>`).join('');
+  CH.m=new Chart(document.getElementById('cM'),{type:'line',
+    data:{labels:lbls,datasets:sucsVis.map((s,i)=>({label:s,tension:.35,pointRadius:3,
+      borderWidth:2,spanGaps:true,borderColor:gc(s,i),backgroundColor:'transparent',
+      data:meses.map(m=>{const r=D.filter(x=>x.suc===s&&x.mes===m);
+        const vv=r.reduce((a,x)=>a+x.v,0),mm=r.reduce((a,x)=>a+x.mb,0);
+        return vv?+(mm/vv*100).toFixed(1):null;})}}))},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.raw}%`}}},
+      scales:{x:{grid:{color:GRD},ticks:{font:{size:9},maxRotation:0}},
+              y:{grid:{color:GRD},ticks:{font:{size:9},callback:v=>v+'%'}}}}});
+
+  // P&L
+  const ag=meses.map(m=>{
+    const rows=D.filter(r=>r.mes===m&&(!selSuc||r.suc===selSuc));
+    return{vt:rows.reduce((a,r)=>a+r.v,0),cm:rows.reduce((a,r)=>a+r.c,0),
+           gs:rows.reduce((a,r)=>a+r.g,0),uo:rows.reduce((a,r)=>a+r.uo,0)};});
+  document.getElementById('lP').innerHTML=[
+    {c:'#2563EB',l:'Ventas'},{c:'#DC2626',l:'CMV'},
+    {c:'#9CA3AF',l:'Gastos'},{c:'#059669',l:'Utilidad'}
+  ].map(x=>`<span><span class="ld" style="background:${x.c}"></span>${x.l}</span>`).join('');
+  CH.p=new Chart(document.getElementById('cP'),{type:'bar',
+    data:{labels:lbls,datasets:[
+      {label:'Ventas', data:ag.map(x=>x.vt), backgroundColor:'rgba(37,99,235,0.75)',stack:'a'},
+      {label:'CMV',    data:ag.map(x=>-x.cm),backgroundColor:'rgba(220,38,38,0.70)',stack:'a'},
+      {label:'Gastos', data:ag.map(x=>-x.gs),backgroundColor:'rgba(156,163,175,0.65)',stack:'a'},
+      {label:'Utilidad',type:'line',data:ag.map(x=>x.uo),
+        borderColor:'#059669',backgroundColor:'rgba(5,150,105,0.08)',
+        fill:true,tension:.35,pointRadius:4,borderWidth:2.5,yAxisID:'y'},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${COP(Math.abs(ctx.raw))}`}}},
+      scales:{x:{stacked:true,grid:{color:GRD},ticks:{font:{size:9},maxRotation:0}},
+              y:{stacked:true,grid:{color:GRD},
+                ticks:{font:{size:9},callback:v=>(v<0?'-$':'$')+Math.abs(Math.round(v/1e6))+'M'}}}}});
+
+  // Tabs tabla
+  if(!selTabSuc) selTabSuc=sucs[0]||'';
+  document.getElementById('tabBtns').innerHTML=
+    ['Todas',...sucs].map(s=>
+      `<button class="sb ${SC[s]?'':''}${(s==='Todas'?'':s)===selTabSuc?' on':''}"
+        onclick="selTabSuc='${s==='Todas'?'':s}';renderTabla()">${s}</button>`
+    ).join('');
+  renderTabla();
+}
+
+function renderTabla() {
+  const d=fil();
+  const rd=selTabSuc?d.filter(r=>r.suc===selTabSuc):d;
+  const byM={};
+  rd.forEach(r=>{if(!byM[r.mes])byM[r.mes]={mes:r.mes,mn:r.mn,v:0,c:0,mb:0,g:0,uo:0};
+    byM[r.mes].v+=r.v;byM[r.mes].c+=r.c;byM[r.mes].mb+=r.mb;byM[r.mes].g+=r.g;byM[r.mes].uo+=r.uo;});
+  const rows=Object.values(byM).sort((a,b)=>a.mes-b.mes);
+  const mx=Math.max(...rows.map(r=>r.v?Math.abs(r.mb/r.v):0),0.01);
+  document.getElementById('TB').innerHTML=rows.map(r=>{
+    const pm=r.v?r.mb/r.v:0,pu=r.v?r.uo/r.v:0,bw=Math.min(100,Math.abs(pm)/mx*100);
+    return`<tr>
+      <td><strong>${r.mn}</strong></td>
+      <td style="text-align:right">${COP(r.v)}</td>
+      <td style="text-align:right">${COP(r.c)}</td>
+      <td style="text-align:right;color:${r.mb>=0?'#059669':'#DC2626'};font-weight:500">${COP(r.mb)}</td>
+      <td style="text-align:right"><span class="tag ${pm>=0?'tp':'tn'}">${(pm*100).toFixed(1)}%</span></td>
+      <td style="text-align:right">${COP(r.g)}</td>
+      <td style="text-align:right;color:${r.uo>=0?'#059669':'#DC2626'};font-weight:500">${COP(r.uo)}</td>
+      <td style="text-align:right"><span class="tag ${pu>=0?'tp':'tn'}">${(pu*100).toFixed(1)}%</span></td>
+      <td><span class="bb"><span class="bf ${pm>=0?'':'n'}" style="width:${bw}%"></span></span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Inicializar ──────────────────────────────────────────────
+renderTops();
+renderCats();
+renderDia();
+renderHora();
+render();
+</script>
+
+<div class="sec">Valoración de la empresa — recalculada con datos LTM</div>
+<div class="card" style="margin-bottom:1rem">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.2rem">
+    <div style="background:#1a1a1a;border-radius:10px;padding:.9rem 1rem;text-align:center">
+      <div style="font-size:9px;color:#bbb;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Enterprise Value</div>
+      <div style="font-size:20px;font-weight:600;color:#fff;line-height:1" id="valEV">—</div>
+      <div style="font-size:9px;color:#999;margin-top:4px">DCF 3 años</div>
+    </div>
+    <div style="background:#fff;border:1px solid #E8E5DF;border-radius:10px;padding:.9rem 1rem;text-align:center">
+      <div style="font-size:9px;color:#999;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Equity Value</div>
+      <div style="font-size:20px;font-weight:600;color:#059669;line-height:1" id="valEquity">—</div>
+      <div style="font-size:9px;color:#888;margin-top:4px" id="valEquitySub">tras deuda neta</div>
+    </div>
+    <div style="background:#fff;border:1px solid #E8E5DF;border-radius:10px;padding:.9rem 1rem;text-align:center">
+      <div style="font-size:9px;color:#999;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">EBITDA LTM</div>
+      <div style="font-size:20px;font-weight:600;line-height:1" id="valEbitda">—</div>
+      <div style="font-size:9px;color:#888;margin-top:4px" id="valMargen">—</div>
+    </div>
+    <div style="background:#fff;border:1px solid #E8E5DF;border-radius:10px;padding:.9rem 1rem;text-align:center">
+      <div style="font-size:9px;color:#999;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Valor del 20%</div>
+      <div style="font-size:20px;font-weight:600;color:#2563EB;line-height:1" id="val20">—</div>
+      <div style="font-size:9px;color:#888;margin-top:4px">socio minoritario</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:11px;color:#333;font-weight:500">WACC</span><span style="font-size:12px;font-weight:600;color:#2563EB" id="vWACC">18%</span></div>
+      <input type="range" id="sWACC" min="12" max="26" value="18" step="1" style="width:100%">
+      <div style="font-size:9px;color:#bbb;margin-top:3px">Tasa de descuento</div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:11px;color:#333;font-weight:500">Múltiplo salida</span><span style="font-size:12px;font-weight:600;color:#2563EB" id="vMult">4.0x</span></div>
+      <input type="range" id="sMult" min="20" max="60" value="40" step="1" style="width:100%">
+      <div style="font-size:9px;color:#bbb;margin-top:3px">EV/EBITDA terminal</div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:11px;color:#333;font-weight:500">Crecimiento anual</span><span style="font-size:12px;font-weight:600;color:#2563EB" id="vCrec">20%</span></div>
+      <input type="range" id="sCrec" min="0" max="35" value="20" step="1" style="width:100%">
+      <div style="font-size:9px;color:#bbb;margin-top:3px">Proyección 3 años</div>
+    </div>
+  </div>
+  <div style="font-size:9px;color:#bbb;margin-top:12px;font-style:italic" id="valNota">EBITDA sobre últimos 12 meses móviles · deuda neta auditada 2025 · se actualiza al correr el pipeline</div>
+</div>
+
+<script>
+const VAL={"ventas_ltm": 11095153135, "ebitda_ltm": 6321830450, "margen_ebitda": 0.5698, "n_meses": 1, "deuda_neta": 364048024};
+
+(function(){
+  const COPv = v => {const a=Math.abs(v);return (v<0?'-':'')+'$'+(a>=1e9?(a/1e9).toFixed(2)+'B':(a/1e6).toFixed(0)+'M');};
+  const SV = {wacc:18, mult:40, crec:20};
+
+  function calcVal(){
+    const ebitda0 = VAL.ebitda_ltm || 0;
+    const deuda = VAL.deuda_neta || 0;
+    const wacc = SV.wacc/100, mult = SV.mult/10, gr = SV.crec/100;
+    const gPerp = 0.04, taxR = 0.35, daR = 0.07, capexR = 0.04, ktR = 0.03;
+    const ventas0 = VAL.ventas_ltm || 0;
+    const margen = VAL.margen_ebitda || 0.16;
+
+    // Proyección UFCF 3 años
+    let pvUFCF = 0, ebitdaN = ebitda0, ventasN = ventas0;
+    for(let i=1;i<=3;i++){
+      ventasN = ventasN*(1+gr);
+      ebitdaN = ventasN*margen;
+      const da = ventasN*daR;
+      const ebit = ebitdaN - da;
+      const nopat = ebit*(1-taxR);
+      const capex = ventasN*capexR;
+      const dKt = (ventasN - ventasN/(1+gr))*ktR;
+      const ufcf = nopat + da - capex - dKt;
+      pvUFCF += ufcf/Math.pow(1+wacc,i);
+    }
+    // Valor terminal
+    const ufcf3 = ebitdaN*(1-taxR) + ventasN*daR - ventasN*capexR;
+    const vtGordon = ufcf3*(1+gPerp)/(wacc-gPerp);
+    const vtMult = ebitdaN*mult;
+    const vt = (vtGordon+vtMult)/2;
+    const pvVT = vt/Math.pow(1+wacc,3);
+
+    const ev = pvUFCF + pvVT;
+    const equity = ev - deuda;
+    return {ev, equity, ebitda0, margen};
+  }
+
+  function renderVal(){
+    const r = calcVal();
+    document.getElementById('valEV').textContent = COPv(r.ev);
+    document.getElementById('valEquity').textContent = COPv(r.equity);
+    document.getElementById('valEbitda').textContent = COPv(r.ebitda0);
+    document.getElementById('valMargen').textContent = (r.margen*100).toFixed(1)+'% margen';
+    document.getElementById('val20').textContent = COPv(r.equity*0.2);
+    document.getElementById('valEquitySub').textContent = 'EV − $'+(VAL.deuda_neta/1e6).toFixed(0)+'M deuda';
+    document.getElementById('valNota').textContent =
+      'EBITDA LTM sobre '+(VAL.n_meses||0)+' meses' + (VAL.n_meses<12?' (anualizado)':'') +
+      ' · deuda neta $'+(VAL.deuda_neta/1e6).toFixed(0)+'M · recalcula al correr pipeline';
+  }
+
+  const mapV = {sWACC:['wacc','vWACC',v=>v+'%'], sMult:['mult','vMult',v=>(v/10).toFixed(1)+'x'], sCrec:['crec','vCrec',v=>v+'%']};
+  Object.entries(mapV).forEach(([id,[k,vid,fmt]])=>{
+    const el=document.getElementById(id);
+    if(el){el.addEventListener('input',()=>{SV[k]=+el.value;document.getElementById(vid).textContent=fmt(+el.value);renderVal();});}
+  });
+  renderVal();
+})();
+</script>
+
+</body>
+</html>
